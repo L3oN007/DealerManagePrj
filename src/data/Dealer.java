@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package data;
 
 /**
@@ -59,18 +64,18 @@ public class Dealer implements Comparable<Dealer> {
         this.continuing = continuing;
     }
 
+    public void output() {
+        System.out.println(this.toString());
+    }
+
     @Override
     public String toString() {
-        return ID + "," + name + "," + addr + "," + phone + "," + continuing;
+        return "[ID = " + ID + ", Name = " + name + ", Address = " + addr + ", Phone = " + phone + ", Continuing = "
+                + continuing + "]";
     }
 
     @Override
     public int compareTo(Dealer o) {
         return this.getID().compareToIgnoreCase(o.getID());
     }
-
-    public void printInfo() {
-        System.out.printf("    %-10s %-10s %-20s %-15s %-10s \n", ID, name, addr, phone, continuing);
-    }
-
 }

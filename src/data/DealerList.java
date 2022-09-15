@@ -1,8 +1,12 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 import tools.MyTool;
@@ -81,7 +85,135 @@ public class DealerList extends ArrayList<Dealer> {
             System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
             this.get(index).printInfo();
         } else {
-            System.out.println("Dealer" + ID + " is not found.");
+            System.out.println("Dealer with ID " + ID + " is not found.");
         }
     }
+
+    public void removeDealer() {
+        String ID = MyTool.getString("Enter ID dealer to remove: ");
+        int index = checkID(ID);
+        if (index >= 0) {
+            this.get(index).setContinuing(false);
+            System.out.println("Successfully.");
+            changed = true;
+        } else {
+            System.out.println("Dealer " + ID + " not found!");
+        }
+    }
+
+    public void updateDealer() {
+        String ID = MyTool.getString("Enter ID dealer to update: ");
+        int index = checkID(ID);
+        if (index >= 0) {
+            System.out.println("new name, ENTER for omitting: ");
+            String newName = MyTool.sc.nextLine().trim();
+            if (!newName.isEmpty()) {
+                this.get(index).setName(newName);
+                changed = true;
+            }
+            System.out.println("new address, ENTER for omitting: ");
+            String newAddress = MyTool.sc.nextLine().trim();
+            if (!newAddress.isEmpty()) {
+                this.get(index).setAddr(newAddress);
+                changed = true;
+            }
+            System.out.println("new phone, ENTER for omitting: ");
+            String newPhone = MyTool.sc.nextLine().trim();
+            if (!newPhone.isEmpty()) {
+                if (newPhone.matches("\\d{9}|\\d{11}")) {
+                    this.get(index).setPhone(newPhone);
+                    changed = true;
+                } else {
+                    System.out.println("Wrong phone format.");
+                    newPhone = MyTool.getStringWithRegex("new phone,ENTER for omitting: ", "Wrong phone format.",
+                            "\\d{9}|\\d{11}");
+                    this.get(index).setPhone(newPhone);
+                    changed = true;
+                }
+            }
+            if (changed == true) {
+                System.out.println("The dealer's information has been updated.");
+            } else {
+                System.out.println("The dealer's information not changed.");
+            }
+
+        } else {
+            System.out.println("Dealer " + ID + " not found!");
+        }
+    }
+
+    public void printAllDealers() {
+        if (this.isEmpty()) {
+            System.out.println("List empty.Nothing to print.");
+        } else {
+            Collections.sort(this);
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            for (int i = 0; i < this.size(); i++) {
+                this.get(i).printInfo();
+            }
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+        }
+    }
+
+    public void printContinuingDealers() {
+        if (this.isEmpty()) {
+            System.out.println("List empty.Nothing to print.");
+        } else {
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            for (int i = 0; i < this.size(); i++) {
+                if (this.get(i).isContinuing() == true) {
+                    this.get(i).printInfo();
+                }
+            }
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+        }
+    }
+
+    public void printUnContinuingDealers() {
+        if (this.isEmpty()) {
+            System.out.println("List empty.Nothing to print.");
+        } else {
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+            for (int i = 0; i < this.size(); i++) {
+                if (this.get(i).isContinuing() == false) {
+                    this.get(i).printInfo();
+                }
+            }
+            System.out.println("+----------+----------+--------------------+---------------+----------+");
+        }
+    }
+
+    public void writeDealerToFile() {
+        if (changed) {
+            try {
+                File f = new File(dataFile);
+                FileWriter fw = new FileWriter(f);
+                PrintWriter pw = new PrintWriter(fw);
+                for (int i = 0; i < this.size(); i++) {
+                    pw.println(this.get(i).toString());
+                }
+                pw.close();
+                fw.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            changed = false;
+            System.out.println("Save to file successfully.");
+        }
+    }
+
+    public boolean isChanged() {
+        return changed;
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed = changed;
+    }
+
 }

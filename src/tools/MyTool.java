@@ -30,7 +30,7 @@ public class MyTool {
     public static String getString(String mess) {
         String id;
         while (true) {
-            System.out.println(mess);
+            System.out.print(mess);
             id = sc.nextLine().trim();
             if (id.isEmpty() || id.length() == 0) {
                 System.out.println("Wrong Input! Please try again.");
