@@ -42,7 +42,8 @@ public class DealerList extends ArrayList<Dealer> {
     }
 
     public DealerList() {
-        super();
+        initWithFile();
+        loadDealerFromFile();
     }
 
     // TODO: Menu Functions
@@ -69,8 +70,8 @@ public class DealerList extends ArrayList<Dealer> {
                 System.out.println("ID is duplicated.Input again.");
             }
         } while (index >= 0);
-        String name = MyTool.getString("Name of new dealer");
-        String addr = MyTool.getString("Address of new dealer");
+        String name = MyTool.getString("Name of new dealer", "Not blank or empty.");
+        String addr = MyTool.getString("Address of new dealer", "Not blank or empty.");
         String phone = MyTool.getStringWithRegex("Phone of new dealer", "Phone is 9 or 11 digit.", "\\d{9}|\\d{11}");
         boolean continuing = true;
         this.add(new Dealer(ID, name, addr, phone, continuing));
@@ -78,19 +79,18 @@ public class DealerList extends ArrayList<Dealer> {
         changed = true;
     }
 
-    public void seachDealer() {
-        String ID = MyTool.getString("Enter ID dealer to search:");
+    public void searchDealer() {
+        String ID = MyTool.getString("Enter ID dealer to search:", "Not blank or empty.");
         int index = checkID(ID);
         if (index >= 0) {
-            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            this.get(index).printInfo();
+            this.get(index).output();
         } else {
             System.out.println("Dealer with ID " + ID + " is not found.");
         }
     }
 
     public void removeDealer() {
-        String ID = MyTool.getString("Enter ID dealer to remove: ");
+        String ID = MyTool.getString("Enter ID dealer to remove: ", "Not blank or empty.");
         int index = checkID(ID);
         if (index >= 0) {
             this.get(index).setContinuing(false);
@@ -102,7 +102,7 @@ public class DealerList extends ArrayList<Dealer> {
     }
 
     public void updateDealer() {
-        String ID = MyTool.getString("Enter ID dealer to update: ");
+        String ID = MyTool.getString("Enter ID dealer to update: ", "Not blank or empty.");
         int index = checkID(ID);
         if (index >= 0) {
             System.out.println("new name, ENTER for omitting: ");
@@ -147,13 +147,9 @@ public class DealerList extends ArrayList<Dealer> {
             System.out.println("List empty.Nothing to print.");
         } else {
             Collections.sort(this);
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
-            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
             for (int i = 0; i < this.size(); i++) {
-                this.get(i).printInfo();
+                this.get(i).output();
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
         }
     }
 
@@ -161,15 +157,11 @@ public class DealerList extends ArrayList<Dealer> {
         if (this.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
-            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).isContinuing() == true) {
-                    this.get(i).printInfo();
+                    this.get(i).output();
                 }
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
         }
     }
 
@@ -177,15 +169,11 @@ public class DealerList extends ArrayList<Dealer> {
         if (this.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
-            System.out.println("|    ID    |   NAME   |      ADDRESS       |     PHONE     |CONTINUING|");
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).isContinuing() == false) {
-                    this.get(i).printInfo();
+                    this.get(i).output();
                 }
             }
-            System.out.println("+----------+----------+--------------------+---------------+----------+");
         }
     }
 

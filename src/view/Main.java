@@ -8,11 +8,11 @@ import tools.MyTool;
 
 public class Main {
     public static void main(String[] args) {
-        LogIn lg = new LogIn();
+        LogIn log = new LogIn();
         boolean confirm;
         do {
-            Account acc = lg.inputAccount();
-            boolean checkLogin = lg.checkLogin(acc);
+            Account acc = log.inputAccount();
+            boolean checkLogin = log.checkLogin(acc);
             if (checkLogin) {
                 if (acc.getRole().equalsIgnoreCase("ACC-1")) {
                     DealerList dList = new DealerList();
@@ -26,7 +26,6 @@ public class Main {
                     menu.addNewOption("   6-Print continuing dealers.");
                     menu.addNewOption("   7-Print Un-continuing dealers.");
                     menu.addNewOption("   8-Write to file");
-                    menu.addNewOption("   9-Others.Exit...");
                     do {
                         menu.printMenu();
                         choice = menu.getChoice();
@@ -35,7 +34,7 @@ public class Main {
                                 dList.addDealer();
                                 break;
                             case 2:
-                                // dList.searchDealer();
+                                dList.searchDealer();
                                 break;
                             case 3:
                                 dList.removeDealer();
@@ -56,14 +55,14 @@ public class Main {
                                 dList.writeDealerToFile();
                                 break;
                         }
-                    } while (choice < 1 || choice > 8);
+                    } while (choice != 8);
                 } else {
                     System.out.println("Developed afterward.");
                 }
             } else {
                 System.out.println("Your account does not exist in the system.");
             }
-            confirm = MyTool.confirmYesNo("Do you want to try again(Y/N): ");
+            confirm = MyTool.confirmYesNo();
         } while (confirm);
     }
 }

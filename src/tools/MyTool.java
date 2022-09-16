@@ -11,29 +11,29 @@ public class MyTool {
     public static Scanner sc = new Scanner(System.in);
 
     public static int getInt(String mess, int min, int max) {
-        System.out.print(mess);
         while (true) {
-            String input = sc.nextLine();
             try {
-                int number = Integer.parseInt(input);
-                if (number < min || number > max) {
-                    System.out.print("Please input between " + min + ", " + max + ": ");
-                    continue;
+                System.out.println(mess);
+                int result = Integer.parseInt(sc.nextLine().trim());
+                if (result < min || result > max) {
+                    throw new NumberFormatException();
+
                 }
-                return number;
-            } catch (Exception e) {
-                System.out.print("Please input an integer number: ");
+                return result;
+            } catch (NumberFormatException e) {
+                System.err.println("Please input number in rage [" + min + ", " + max + "]");
+                System.out.print("Enter again: ");
             }
         }
     }
 
-    public static String getString(String mess) {
+    public static String getString(String mess, String remindMess) {
         String id;
         while (true) {
             System.out.print(mess);
             id = sc.nextLine().trim();
             if (id.isEmpty() || id.length() == 0) {
-                System.out.println("Wrong Input! Please try again.");
+                System.out.println(remindMess);
             } else {
                 return id;
             }
@@ -52,16 +52,18 @@ public class MyTool {
         }
     }
 
-    public static boolean confirmYesNo(String mess) {
-        System.out.println(mess);
+    public static boolean confirmYesNo() {
         while (true) {
+            System.out.println("Do you want to try again(Y/N): ");
             String result = sc.nextLine();
+            // check user input y/Y or n/N
             if (result.equalsIgnoreCase("Y")) {
                 return true;
-            }
-            if (result.equalsIgnoreCase("N")) {
+            } else if (result.equalsIgnoreCase("N")) {
                 return false;
             }
+            System.err.println("Please input y/Y or n/N.");
+            System.out.print("Enter again: ");
         }
     }
 
