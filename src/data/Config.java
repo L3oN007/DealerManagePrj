@@ -30,15 +30,15 @@ public class Config {
             bf.close();
             fr.close();
         } catch (Exception e) {
-            System.out.println(e);
+            // System.out.println(e);
         }
         for (String line : data) {
             String[] parts = line.split(":");
-            if(line.contains("accounts"))
+            if (line.contains("accounts"))
                 accountFile = "DealerData/" + parts[1].trim();
-            else if(line.contains("dealers"))
+            else if (line.contains("dealers"))
                 dealerFile = "DealerData/" + parts[1].trim();
-            else if(line.contains("delivery"))
+            else if (line.contains("delivery"))
                 deliveryFile = "DealerData/" + parts[1].trim();
         }
     }
@@ -54,5 +54,5 @@ public class Config {
     public String getDeliveryFile() {
         return deliveryFile;
     }
-    
+
 }

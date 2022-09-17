@@ -11,7 +11,7 @@ import tools.MyTool;
 
 /**
  *
- * @author admin
+ * @author Vu Minh Nhat
  */
 public class Menu {
     private ArrayList<String> optionList = new ArrayList();
@@ -36,8 +36,6 @@ public class Menu {
     }
 
     public int getChoice() {
-        int maxOption = optionList.size();
-        String inputMsg = "Choose [1.." + maxOption + "]: ";
-        return MyTool.getInt(inputMsg, 1, maxOption);
+        return MyTool.getInt("Choose [1.." + "8" + "]: ");
     }
 }

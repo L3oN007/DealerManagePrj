@@ -26,6 +26,7 @@ public class Main {
                     menu.addNewOption("   6-Print continuing dealers.");
                     menu.addNewOption("   7-Print Un-continuing dealers.");
                     menu.addNewOption("   8-Write to file");
+                    menu.addNewOption("   Other number to quit program!!!");
                     do {
                         menu.printMenu();
                         choice = menu.getChoice();
@@ -55,14 +56,15 @@ public class Main {
                                 dList.writeDealerToFile();
                                 break;
                         }
-                    } while (choice != 8);
+                    } while (choice <= 8 && choice > 0);
                 } else {
-                    System.out.println("Developed afterward.");
+                    System.out.println("Developed afterward!!");
                 }
             } else {
                 System.out.println("Your account does not exist in the system.");
             }
             confirm = MyTool.confirmYesNo();
         } while (confirm);
+        System.out.println("Bye.Have a nice day!");
     }
 }

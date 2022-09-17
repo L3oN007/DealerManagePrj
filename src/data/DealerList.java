@@ -146,10 +146,15 @@ public class DealerList extends ArrayList<Dealer> {
         if (this.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
+            System.out
+                    .println("--------------------------------- LIST OF ALL DEALERS ---------------------------------");
             Collections.sort(this);
             for (int i = 0; i < this.size(); i++) {
                 this.get(i).output();
             }
+            System.out
+                    .println("---------------------------------------- END ------------------------------------------");
+
         }
     }
 
@@ -157,11 +162,16 @@ public class DealerList extends ArrayList<Dealer> {
         if (this.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
+            System.out.println(
+                    "---------------------------- LIST OF ALL CONTINUING DEALERS ----------------------------");
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).isContinuing() == true) {
                     this.get(i).output();
                 }
             }
+            System.out.println(
+                    "----------------------------------------- END ------------------------------------------");
+
         }
     }
 
@@ -169,11 +179,15 @@ public class DealerList extends ArrayList<Dealer> {
         if (this.isEmpty()) {
             System.out.println("List empty.Nothing to print.");
         } else {
+            System.out.println(
+                    "-------------------------- LIST OF ALL UN-CONTINUING DEALERS --------------------------");
             for (int i = 0; i < this.size(); i++) {
                 if (this.get(i).isContinuing() == false) {
                     this.get(i).output();
                 }
             }
+            System.out.println(
+                    "---------------------------------------- END ------------------------------------------");
         }
     }
 

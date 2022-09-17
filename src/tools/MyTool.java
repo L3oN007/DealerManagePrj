@@ -10,19 +10,14 @@ public class MyTool {
 
     public static Scanner sc = new Scanner(System.in);
 
-    public static int getInt(String mess, int min, int max) {
+    public static int getInt(String mess) {
         while (true) {
             try {
-                System.out.println(mess);
+                System.out.print(mess);
                 int result = Integer.parseInt(sc.nextLine().trim());
-                if (result < min || result > max) {
-                    throw new NumberFormatException();
-
-                }
                 return result;
             } catch (NumberFormatException e) {
-                System.err.println("Please input number in rage [" + min + ", " + max + "]");
-                System.out.print("Enter again: ");
+                System.err.println("Please input a number!!!");
             }
         }
     }

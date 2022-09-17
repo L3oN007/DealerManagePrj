@@ -16,7 +16,7 @@ import tools.MyTool;
 
 /**
  *
- * @author DELLL
+ * @author Vu Minh Nhat
  */
 public class LogIn {
 
@@ -53,6 +53,7 @@ public class LogIn {
     }
 
     public Account inputAccount() {
+        System.out.println("Please login to System");
         String name = MyTool.getString("Your account name: ", "Not blank or empty.Input again.");
         String password = MyTool.getString("Your password: ", "Not blank or empty.Input again.");
         String role = MyTool.getString("Your role: ", "Not blank or empty.Input again.");
